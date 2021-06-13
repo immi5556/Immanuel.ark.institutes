@@ -11,6 +11,11 @@ namespace ark.institute.Controllers
     [ApiController]
     public class AppController : ControllerBase
     {
-
+        [HttpPost]
+        [Route("upload")]
+        public dynamic UploadFile()
+        {
+            return new Logic().PersistImage(Request.Form.Files);
+        }
     }
 }

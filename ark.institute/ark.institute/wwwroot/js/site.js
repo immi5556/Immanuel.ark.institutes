@@ -44,15 +44,19 @@
                             <!--//FEATURE LIST END-->
                             <!--BUTTON START-->
                             <div class="generic_price_btn clearfix">
-                                <a class="javascript:void(0);" href="">Details</a>
-                                <a class="javascript:void(0);" href="">Report</a>
+                                <a class="" href="javascript:void(0);">Details</a>
+                                <a class="" href="javascript:void(0);">Report</a>
                             </div>
                             <!--//BUTTON END-->
 
                         </div>
                         <!--//PRICE CONTENT END-->
 
-                    </div>`
+                    </div>`;
+    let popDetail = () => {
+
+    }
+
     let listcontain = document.querySelector(".tile-container");
     let $file_upl = $("#file_upl");
     $file_upl.on('change', (evt) => {
@@ -75,3 +79,67 @@
         }
     }
 })();
+
+
+//details modal script
+
+$(document).ready(function () {
+
+    var $sm = 480;
+    var $md = 768;
+
+    function resizeThis() {
+        $imgH = $('.middle img').width();
+        if ($(window).width() >= $sm) {
+            $('.left,.right,.section').css('height', $imgH);
+        } else {
+            $('.left,.right,.section').css('height', 'auto');
+        }
+    }
+
+    resizeThis();
+
+    $(window).resize(function () {
+        resizeThis();
+    });
+    $("#cls-detail").click(function (e) {
+        $("#detail-container").hide('slow');
+    });
+    $("#detail-container").scroll(function () {
+        $('.section').each(function () {
+            var $elementPos = $(this).offset().top;
+            var $scrollPos = $(window).scrollTop();
+
+            var $sectionH = $(this).height();
+            var $h = $(window).height();
+            var $sectionVert = (($h / 2) - ($sectionH / 4));
+
+
+            if (($elementPos - $sectionVert) <= $scrollPos && ($elementPos - $sectionVert) + $sectionH > $scrollPos) {
+                $(this).addClass('animate');
+            } else {
+                $(this).removeClass('animate');
+            }
+            console.log('scroll')
+        });
+    });
+
+    $('.btn-primary').click(function () {
+        alert('I lied');
+    });
+});
+
+$(function () {
+    $('#detail-container a[href*="#"]:not([href="#"])').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        }
+    });
+});
